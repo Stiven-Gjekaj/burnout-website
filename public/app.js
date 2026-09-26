@@ -234,14 +234,20 @@
     });
   }
 
+  // The code element that a copy button belongs to.
+  function sourceOf(button) {
+    var selector = button.getAttribute("data-copy-from");
+    if (selector) return document.querySelector(selector);
+    var box = button.closest(".cmd, .hash");
+    return box ? box.querySelector("code") : null;
+  }
+
   document.addEventListener("click", function (event) {
     var button = event.target.closest("button[data-copy], button[data-copy-from]");
     if (!button) return;
+    var source = sourceOf(button);
     var text = button.getAttribute("data-copy");
-    if (text == null) {
-      var source = document.querySelector(button.getAttribute("data-copy-from"));
-      text = source ? source.textContent : "";
-    }
+    if (text == null) text = source ? source.textContent : "";
     copyText(text).then(
       function () {
         button.textContent = "Copied";
@@ -252,7 +258,14 @@
         }, 1600);
       },
       function () {
-        button.textContent = "Select it";
+        // The browser refused the clipboard. Select the text, so that the
+        // person can copy it with the keys of the system.
+        // A hash shows only its ends, so show all of it first.
+        if (source) {
+          if (source.textContent !== text) source.textContent = text;
+          window.getSelection().selectAllChildren(source);
+        }
+        button.textContent = "Selected";
       }
     );
   });
