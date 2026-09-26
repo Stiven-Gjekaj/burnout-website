@@ -1,0 +1,409 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Burnout: write a bootable USB drive from the command line</title>
+  <meta name="description" content="Burnout writes a bootable USB drive from an ISO or a disk image. It writes Linux and Windows drives with the same two commands on Windows, macOS and Linux. Open source, MIT licence.">
+  <meta name="theme-color" content="#0c0706">
+  <link rel="canonical" href="https://burnout-cli.vercel.app/">
+  <link rel="icon" type="image/svg+xml" href="/assets/logo.svg">
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Burnout">
+  <meta property="og:title" content="Burnout: write a bootable USB drive from the command line">
+  <meta property="og:description" content="Linux and Windows drives, with the same two commands on Windows, macOS and Linux.">
+  <meta property="og:url" content="https://burnout-cli.vercel.app/">
+  <meta property="og:image" content="https://burnout-cli.vercel.app/og.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="The Burnout logo and wordmark, and the words: writes a bootable USB drive from the command line.">
+  <meta name="twitter:card" content="summary_large_image">
+  <link rel="stylesheet" href="/styles.css">
+  <script src="/app.js" defer></script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    "name": "Burnout",
+    "description": "Writes a bootable USB drive from an ISO or a disk image, from the command line.",
+    "applicationCategory": "UtilitiesApplication",
+    "operatingSystem": "Windows, macOS, Linux",
+    "url": "https://burnout-cli.vercel.app/",
+    "downloadUrl": "https://github.com/Stiven-Gjekaj/burnout/releases/latest",
+    "license": "https://opensource.org/license/mit",
+    "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
+    "author": { "@type": "Person", "name": "Stiven Gjekaj" }
+  }
+  </script>
+</head>
+<body>
+  <a class="skip" href="#main">Skip to the content</a>
+
+  <header class="bar">
+    <div class="wrap bar-in">
+      <nav class="nav" aria-label="Sections">
+        <a href="#download">Download</a>
+        <a href="#install">Install</a>
+        <a class="wide" href="#use">Use</a>
+        <a class="wide" href="#safety">Safety</a>
+        <a class="wide" href="#faq">FAQ</a>
+        <a class="gh" href="https://github.com/Stiven-Gjekaj/burnout">GitHub</a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main">
+    <section class="hero">
+      <div class="wrap hero-in">
+        <div class="hero-copy">
+          <img class="wordmark" src="/assets/wordmark.svg" alt="Burnout" width="756" height="180">
+          <h1>Writes a bootable USB drive from the command line.</h1>
+          <p class="lede">Two commands. The same two on Windows, on macOS and on Linux. Burnout reads the image, works out what that image needs, and does it.</p>
+          <div class="get">
+            <p class="get-label" data-install-label>Install with Homebrew</p>
+            <div class="cmd">
+              <code data-install-command>brew install stiven-gjekaj/tap/burnout</code>
+              <button type="button" class="copy" data-copy-from="[data-install-command]" aria-label="Copy the install command">Copy</button>
+            </div>
+          </div>
+          <div class="cta">
+            <a class="btn primary" href="#download" data-latest-label>Download</a>
+            <a class="btn" href="#install">Other ways to install</a>
+          </div>
+          <p class="meta" data-latest-meta>Open source, under the MIT licence.</p>
+        </div>
+
+        <figure class="term">
+          <div class="term-bar" aria-hidden="true"><span></span><span></span><span></span><p>burnout</p></div>
+<pre class="term-body" tabindex="0" aria-label="An example session: burnout list, then burnout write"><code><span class="p">$</span> <span class="c">burnout list</span>
+<span class="o">#  DRIVE              SIZE                              BUS     REMOVABLE
+1  APPLE SSD AP0512Z  500.3 GB (500,277,792,768 bytes)  Fabric  no   <span class="h">(system disk)</span>
+2  SanDisk Ultra      62.5 GB (62,521,344,000 bytes)    USB     yes</span>
+
+<span class="p">$</span> <span class="c">burnout write ubuntu-24.04.iso 2</span>
+<span class="w">This erases the drive. Nothing undoes it.</span>
+<span class="o">
+    image   ubuntu-24.04.iso
+            2.1 GB (2,109,796,352 bytes)
+    drive   SanDisk Ultra
+            62.5 GB (62,521,344,000 bytes)
+            /dev/rdisk4 USB removable
+
+The image carries a boot table in its first sector.
+
+Type yes to go on:</span>
+<span class="p">&gt;</span> <span class="c">yes</span>
+<span class="o">Wrote 2.1 GB (2,109,796,352 bytes) to SanDisk Ultra.</span>
+<span class="k">Checked 2.1 GB (2,109,796,352 bytes) of the drive against the image, byte for byte.</span></code></pre>
+          <figcaption class="sr-only">An example session. The list names each drive with its size, and marks the system disk. The write names the image and the drive, waits for yes, and then says which check it ran.</figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <section class="section" id="why" aria-labelledby="why-title">
+      <div class="wrap narrow">
+        <h2 id="why-title">One tool for both kinds of image</h2>
+        <p>Most tools of this kind solve one half of the problem. A byte copy writes a Linux ISO and fails on Windows. Rufus builds a real Windows installer and runs on Windows only. So the answer today depends on which image you hold and which computer you sit at, and each answer has its own flags to learn.</p>
+        <p>Burnout removes the choice. It reads the image, works out what that image needs, and does it. The commands you type on a Mac are the commands you type on Windows, and the image decides the rest.</p>
+      </div>
+    </section>
+
+    <section class="section alt" id="features" aria-label="What Burnout does">
+      <div class="wrap grid2">
+        <div class="card">
+          <h3>What it does</h3>
+          <ul class="ticks">
+            <li><strong>Writes any bootable image.</strong> A Linux ISO, a BSD ISO, a raw <code>.img</code>.</li>
+            <li><strong>Builds a real Windows installer</strong>, and not a copy of the files.</li>
+            <li><strong>Holds a large install image</strong>, with no split and no lost <code>install.esd</code>.</li>
+            <li><strong>Skips the checks of Windows 11</strong> for TPM, Secure Boot, RAM, CPU and storage, when you ask.</li>
+            <li><strong>Skips the Microsoft account step</strong> in Windows Setup, when you ask.</li>
+            <li><strong>Verifies the write</strong>, and names the check that it ran.</li>
+          </ul>
+        </div>
+        <div class="card">
+          <h3>How it behaves</h3>
+          <ul class="ticks">
+            <li>The same commands on all three operating systems.</li>
+            <li>No flag for a thing that the tool can work out by itself.</li>
+            <li>It never mounts a drive, and it calls no tool of the host.</li>
+            <li>It refuses the disk that your system starts from.</li>
+            <li>Each error says what went wrong, and then what to do about it.</li>
+            <li>It asks for a password through <code>sudo</code>, and never reads one itself.</li>
+            <li>It names the target, and you confirm it, one time.</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="modes" aria-labelledby="modes-title">
+      <div class="wrap">
+        <h2 id="modes-title">Two modes, and the image chooses</h2>
+        <p class="sub">You do not tell Burnout which mode to use. It reads the first 512 bytes of the image.</p>
+        <ol class="flow" aria-label="How Burnout chooses the mode">
+          <li><span class="flow-step">1</span><p>Burnout reads the first 512 bytes of the image.</p></li>
+          <li><span class="flow-step">2</span><p>A boot signature and a partition table there mean a hybrid image. <strong>Raw mode</strong> copies the bytes.</p></li>
+          <li><span class="flow-step">3</span><p>Without them, it looks for <code>sources/install.wim</code> or <code>sources/install.esd</code>. <strong>Windows mode</strong> builds the installer.</p></li>
+          <li><span class="flow-step">4</span><p>If it finds neither, it stops and says what it found.</p></li>
+        </ol>
+        <div class="grid2">
+          <article class="card mode">
+            <p class="tag">Raw mode</p>
+            <h3>For Linux, BSD, any hybrid ISO and any <code>.img</code></h3>
+            <dl>
+              <dt>What it does</dt><dd>Copies the image byte for byte.</dd>
+              <dt>Partition table</dt><dd>Comes from inside the image.</dd>
+              <dt>Verifies by</dt><dd>One hash of the device against the source.</dd>
+              <dt>Proves</dt><dd>The drive holds the image.</dd>
+            </dl>
+          </article>
+          <article class="card mode">
+            <p class="tag">Windows mode</p>
+            <h3>For a Windows installer ISO</h3>
+            <dl>
+              <dt>What it does</dt><dd>Partitions, formats, and writes the files.</dd>
+              <dt>Partition table</dt><dd>Burnout creates it.</dd>
+              <dt>Verifies by</dt><dd>One hash for each file.</dd>
+              <dt>Proves</dt><dd>Each file arrived whole.</dd>
+            </dl>
+          </article>
+        </div>
+        <p class="aside">A Linux ISO is already a bootable disk image. It carries its own boot code, its own partition table and its own EFI system partition, so writing it means a copy of the bytes. A Windows ISO is not a bootable disk image. It holds no boot code for a USB drive, so a byte copy gives a drive that most firmware refuses.</p>
+      </div>
+    </section>
+
+    <section class="section alt" id="layout" aria-labelledby="layout-title">
+      <div class="wrap">
+        <h2 id="layout-title">The drive that Windows mode writes</h2>
+        <div class="disk">
+          <div class="mbr">MBR partition table</div>
+          <div class="parts">
+            <div class="part p1">
+              <p class="part-name">Partition 1</p>
+              <p class="part-fs">FAT32, about 1 GB</p>
+              <ul>
+                <li>every boot file</li>
+                <li><code>bootmgr</code>, <code>efi/</code>, <code>boot.wim</code></li>
+                <li><code>autounattend.xml</code></li>
+              </ul>
+              <p class="part-note">UEFI firmware reads this. It reads FAT only, so every boot file lives here.</p>
+            </div>
+            <div class="part p2">
+              <p class="part-name">Partition 2</p>
+              <p class="part-fs">exFAT, the rest of the drive</p>
+              <ul>
+                <li><code>sources/install.wim</code></li>
+                <li>or <code>sources/install.esd</code></li>
+                <li>whole, and never split</li>
+              </ul>
+              <p class="part-note">Windows PE reads this, after it has started from partition 1.</p>
+            </div>
+          </div>
+        </div>
+        <ul class="reasons">
+          <li><strong>exFAT, and not NTFS.</strong> macOS mounts NTFS read only, so an NTFS partition would give a Windows path that works on two hosts out of three.</li>
+          <li><strong>No file is ever split.</strong> exFAT has no 4 GiB limit, so the install image goes on whole. Burnout writes no WIM file.</li>
+          <li><strong>MBR, and not GPT.</strong> Burnout writes the table itself, so the spare EFI partition that <code>diskutil</code> adds on macOS never appears.</li>
+        </ul>
+      </div>
+    </section>
+
+    <section class="section" id="download" aria-labelledby="download-title">
+      <div class="wrap">
+        <h2 id="download-title">Download</h2>
+        <p class="sub" data-release-line>Each release has six binaries. None of them needs anything installed beside it.</p>
+        <div class="table-wrap">
+          <table class="downloads">
+            <caption class="sr-only">The binaries of the latest release</caption>
+            <thead>
+              <tr><th scope="col">System</th><th scope="col">Size</th><th scope="col">SHA-256</th><th scope="col"><span class="sr-only">Download</span></th></tr>
+            </thead>
+            <tbody data-downloads>
+              <tr><td colspan="4" class="note-cell">The page reads the latest release from GitHub.</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p class="fallback" data-fallback hidden>The page could not read the latest release from GitHub. Open <a href="https://github.com/Stiven-Gjekaj/burnout/releases/latest">the latest release</a> to download a binary.</p>
+        <noscript><p class="fallback">Open <a href="https://github.com/Stiven-Gjekaj/burnout/releases/latest">the latest release on GitHub</a> to download a binary.</p></noscript>
+
+        <div class="grid2 checks">
+          <div class="card">
+            <h3>Check a download</h3>
+            <p>The checksum says that the file arrived whole:</p>
+            <pre><code>shasum -a 256 -c SHA256SUMS --ignore-missing</code></pre>
+            <p>The attestation says that the file came out of the Burnout repository, from the commit that the tag names, through the release workflow:</p>
+            <pre><code>gh attestation verify burnout-<span data-version>&lt;version&gt;</span>-aarch64-apple-darwin --repo Stiven-Gjekaj/burnout</code></pre>
+          </div>
+          <div class="card">
+            <h3>The warning that a browser download brings</h3>
+            <p>A browser marks each file that it downloads, and macOS and Windows then warn before they start it. The warning is about how the file arrived, and not about what the file holds. Check the file first, and then take the mark off.</p>
+            <p><strong>macOS</strong> does not start the binary, because no paid certificate signed it:</p>
+            <pre><code>xattr -d com.apple.quarantine burnout-<span data-version>&lt;version&gt;</span>-aarch64-apple-darwin</code></pre>
+            <p><strong>Windows</strong> SmartScreen can show "Windows protected your PC". Select <em>More info</em>, and then <em>Run anyway</em>. In PowerShell, <code>Unblock-File</code> takes the mark off:</p>
+            <pre><code>Unblock-File .\burnout-<span data-version>&lt;version&gt;</span>-x86_64-pc-windows-msvc.exe</code></pre>
+            <p>Homebrew, Cargo, <code>curl</code> and <code>gh release download</code> set no mark, so they bring no warning.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section alt" id="install" aria-labelledby="install-title">
+      <div class="wrap">
+        <h2 id="install-title">Install</h2>
+        <div class="grid2">
+          <div class="card">
+            <h3>Homebrew</h3>
+            <p>On macOS and on Linux.</p>
+            <div class="cmd"><code>brew install stiven-gjekaj/tap/burnout</code><button type="button" class="copy" data-copy="brew install stiven-gjekaj/tap/burnout" aria-label="Copy the Homebrew command">Copy</button></div>
+          </div>
+          <div class="card">
+            <h3>Scoop</h3>
+            <p>On Windows.</p>
+            <div class="cmd"><code>scoop bucket add stiven-gjekaj https://github.com/Stiven-Gjekaj/scoop-bucket</code><button type="button" class="copy" data-copy="scoop bucket add stiven-gjekaj https://github.com/Stiven-Gjekaj/scoop-bucket" aria-label="Copy the command that adds the bucket">Copy</button></div>
+            <div class="cmd"><code>scoop install stiven-gjekaj/burnout</code><button type="button" class="copy" data-copy="scoop install stiven-gjekaj/burnout" aria-label="Copy the Scoop install command">Copy</button></div>
+          </div>
+          <div class="card">
+            <h3>winget</h3>
+            <p>On Windows, when Microsoft accepts the manifest.</p>
+            <div class="cmd"><code>winget install Stiven-Gjekaj.Burnout</code><button type="button" class="copy" data-copy="winget install Stiven-Gjekaj.Burnout" aria-label="Copy the winget command">Copy</button></div>
+          </div>
+          <div class="card">
+            <h3>Cargo</h3>
+            <p>On any of the three systems, from the source on crates.io.</p>
+            <div class="cmd"><code>cargo install burnout</code><button type="button" class="copy" data-copy="cargo install burnout" aria-label="Copy the Cargo command">Copy</button></div>
+          </div>
+        </div>
+        <p class="aside">A write needs the right to write to the drive. On macOS and on Linux, Burnout asks for a password through <code>sudo</code> only when the drive refuses the write. On Windows, run it from a shell that runs as Administrator.</p>
+      </div>
+    </section>
+
+    <section class="section" id="use" aria-labelledby="use-title">
+      <div class="wrap">
+        <h2 id="use-title">Use</h2>
+        <div class="steps">
+          <div class="step">
+            <h3><span class="flow-step">1</span>Find the drive</h3>
+            <pre><code>burnout list</code></pre>
+            <p><code>list</code> runs with no privilege, so you see your drives before you give a password. The size comes twice: the rounded figure that the box shows, and the exact count of bytes. The list marks the system disk, and a drive that takes no write.</p>
+          </div>
+          <div class="step">
+            <h3><span class="flow-step">2</span>Write the image</h3>
+            <pre><code>burnout write ubuntu-24.04.iso 2</code></pre>
+            <p>The command is the same on all three systems. Burnout names the drive, its size to the byte and its serial, and waits until you type yes.</p>
+          </div>
+          <div class="step">
+            <h3><span class="flow-step">3</span>A Windows ISO takes the same command</h3>
+            <pre><code>burnout write Win11_25H2.iso 2 --skip-hardware-checks --no-microsoft-account</code></pre>
+            <p><code>--skip-hardware-checks</code> turns off the checks of Windows 11 for TPM, Secure Boot, RAM, CPU and storage. <code>--no-microsoft-account</code> takes away the step of the Microsoft account. Setup then asks for a local account and its password, so Burnout holds no password.</p>
+          </div>
+        </div>
+        <div class="grid2">
+          <div class="card">
+            <h3>When the write ends</h3>
+            <p>Burnout names the check that it ran. For a Windows ISO, it counts the files:</p>
+            <pre class="out"><code>Wrote 963 files of 8.0 GB (7,988,543,418 bytes) to Samsung Flash Drive: 962 onto partition 1, FAT32, and 1 onto partition 2, exFAT.
+Checked each file through a new mount of its volume against the SHA-256 that it went in with, and the partition table against the one that Burnout wrote.</code></pre>
+          </div>
+          <div class="card">
+            <h3>A write that stops</h3>
+            <p>Burnout resumes nothing, and it promises nothing about a write that stops. It says what the drive holds, after an error and after Ctrl-C alike:</p>
+            <pre class="out"><code>burnout: stopped. The write did not end, so the drive holds part of the image, and it is not usable now. Write the image again</code></pre>
+          </div>
+          <div class="card">
+            <h3>An image that is not complete</h3>
+            <p>An ISO records the size of its own volume. Burnout refuses a file that is shorter before it reads anything else, because a download that stopped early leaves such a file.</p>
+          </div>
+          <div class="card">
+            <h3>For a script</h3>
+            <p><code>--json</code> prints JSON on the output stream, and the text for a person goes to the error stream. Each kind of error has a name that a script can test.</p>
+            <pre><code>burnout list --json</code></pre>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section alt" id="safety" aria-labelledby="safety-title">
+      <div class="wrap">
+        <h2 id="safety-title">Safety</h2>
+        <div class="warning" role="note">
+          <p><strong>Burnout erases the drive that you give it.</strong> The erased data goes nowhere, and no undo exists. A wrong target, a drive that fails during the write, and a cable that comes loose all give the same result, and none of them is recoverable. Keep a backup of anything you value.</p>
+        </div>
+        <div class="grid2">
+          <div class="card">
+            <h3>What the code must never do</h3>
+            <ul class="crosses">
+              <li>Write to a device that you did not select and confirm.</li>
+              <li>Write to the disk that the running system starts from.</li>
+              <li>Treat a fixed disk as a removable one.</li>
+              <li>Report a verification pass that it did not run.</li>
+              <li>Hide the target behind a default. You name the target every time.</li>
+            </ul>
+          </div>
+          <div class="card">
+            <h3>You supply the operating system</h3>
+            <p>Burnout downloads no operating system, hosts none, and gives you a licence for none. A Windows installation needs a licence from Microsoft.</p>
+            <p>Read <a href="https://github.com/Stiven-Gjekaj/burnout/blob/main/TERMS.md">the terms</a> before you run Burnout.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="faq" aria-labelledby="faq-title">
+      <div class="wrap narrow">
+        <h2 id="faq-title">Questions</h2>
+        <details>
+          <summary>Does Burnout cost money?</summary>
+          <p>No. Burnout is open source under the MIT licence.</p>
+        </details>
+        <details>
+          <summary>Which computers does it run on?</summary>
+          <p>Windows, macOS and Linux, on x86_64 and on arm64. Each release has six binaries, one for each system and processor. The Linux binaries carry their own C library, and the Windows binaries carry the Microsoft C runtime.</p>
+        </details>
+        <details>
+          <summary>Can it make a macOS installer?</summary>
+          <p>No, and it will not. Apple ships no ISO, and the supported path is <code>createinstallmedia</code>, which runs on macOS only. Burnout finds a macOS installer and refuses it with a sentence that names the right tool.</p>
+        </details>
+        <details>
+          <summary>Does a Windows drive start in Legacy BIOS mode?</summary>
+          <p>Not in version 1. Windows mode writes a drive for UEFI firmware. The MBR layout leaves the door open for Legacy BIOS later. In raw mode, the drive holds the boot code of the image itself.</p>
+        </details>
+        <details>
+          <summary>Does it split a large <code>install.wim</code>?</summary>
+          <p>No. Partition 2 is exFAT, which has no 4 GiB limit, so the install image goes on whole.</p>
+        </details>
+        <details>
+          <summary>Why does my system warn me before it starts the binary?</summary>
+          <p>The binaries carry no paid code signing certificate. Each one carries build provenance instead, which says that it came out of the release workflow of the repository. <a href="#download">Download</a> says how to check a file and how to take the mark off.</p>
+        </details>
+        <details>
+          <summary>What is not tested yet?</summary>
+          <p>Windows mode is tested on Arm64. An x64 machine and the firmware of a physical PC are not tested yet. <a href="https://github.com/Stiven-Gjekaj/burnout/blob/main/docs/roadmap.md">The roadmap</a> records each measurement.</p>
+        </details>
+        <details>
+          <summary>Where do I report a problem?</summary>
+          <p>In <a href="https://github.com/Stiven-Gjekaj/burnout/issues">the issues of the repository</a>. Give the command, the full output, and the system.</p>
+        </details>
+      </div>
+    </section>
+  </main>
+
+  <footer class="foot">
+    <div class="wrap foot-in">
+      <a class="brand" href="/" aria-label="Burnout, the home page">
+        <img src="/assets/logo.svg" alt="" width="24" height="24">
+        <span>Burnout</span>
+      </a>
+      <nav aria-label="Project links">
+        <a href="https://github.com/Stiven-Gjekaj/burnout">Source</a>
+        <a href="https://github.com/Stiven-Gjekaj/burnout/releases">Releases</a>
+        <a href="https://github.com/Stiven-Gjekaj/burnout/blob/main/docs/roadmap.md">Roadmap</a>
+        <a href="https://github.com/Stiven-Gjekaj/burnout/blob/main/TERMS.md">Terms</a>
+        <a href="https://github.com/Stiven-Gjekaj/burnout/issues">Report a problem</a>
+      </nav>
+      <p class="fine">Burnout is open source under the MIT licence. Copyright 2026 Stiven Gjekaj.</p>
+    </div>
+  </footer>
+</body>
+</html>
