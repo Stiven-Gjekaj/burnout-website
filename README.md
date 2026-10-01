@@ -12,7 +12,7 @@ The site is one static page. It has no build step and no dependency.
 | `public/index.html` | The page |
 | `public/styles.css` | The style, in dark and in light |
 | `public/app.js` | The download table, the install command and the copy buttons |
-| `public/assets/` | The wordmark of Burnout |
+| `public/assets/` | The wordmark of Burnout, and the favicon drawn from its prompt and cursor |
 | `art/og.svg` | The source of `public/og.png`, the preview image for links |
 | `vercel.json` | The output folder and the headers, with a strict content security policy |
 
@@ -47,6 +47,11 @@ of Burnout. Change the page when those documents change.
 After a change to `art/og.svg`, render the preview image again:
 
     rsvg-convert -w 1200 -h 630 art/og.svg -o public/og.png
+
+After a change to `public/assets/favicon.svg`, render the two PNG icons again:
+
+    rsvg-convert -w 32 -h 32 public/assets/favicon.svg -o public/favicon-32.png
+    rsvg-convert -w 180 -h 180 public/assets/favicon.svg -o public/apple-touch-icon.png
 
 ## Licence
 

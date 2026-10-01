@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128" width="128" height="128">
+  <!-- The prompt and the cursor of the wordmark, on its warm black. -->
+  <defs>
+    <linearGradient id="chevron" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#dc2626"/>
+      <stop offset="1" stop-color="#f97316"/>
+    </linearGradient>
+  </defs>
+  <rect width="128" height="128" rx="26" fill="#0c0706"/>
+  <path d="M0 0h12v12h-12zM12 12h12v12h-12zM24 24h12v12h-12zM36 36h12v12h-12zM24 48h12v12h-12zM12 60h12v12h-12zM0 72h12v12h-12z"
+        fill="url(#chevron)" transform="translate(17.5 15.5) scale(1.15)"/>
+  <rect x="84.5" y="15.5" width="26" height="96.6" fill="#fbbf24"/>
+</svg>
