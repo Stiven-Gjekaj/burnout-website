@@ -15,50 +15,7 @@
   </defs>
   <rect width="1200" height="630" fill="#0c0706"/>
   <rect width="1200" height="630" fill="url(#og-heat)"/>
-  <svg x="84" y="150" width="250" height="250" viewBox="0 0 256 256">
-  <title>Burnout</title>
-  <defs>
-    <linearGradient id="tile" x1="0" y1="0" x2="0" y2="1">
-      <stop offset="0" stop-color="#17141A"/>
-      <stop offset="1" stop-color="#08070A"/>
-    </linearGradient>
-    <radialGradient id="heat" cx="0.5" cy="0.5" r="0.52">
-      <stop offset="0" stop-color="#F97316" stop-opacity="0.36"/>
-      <stop offset="0.55" stop-color="#EA580C" stop-opacity="0.11"/>
-      <stop offset="1" stop-color="#EA580C" stop-opacity="0"/>
-    </radialGradient>
-    <linearGradient id="flame" x1="0" y1="0" x2="0" y2="1">
-      <stop offset="0" stop-color="#EF4444"/>
-      <stop offset="0.42" stop-color="#F97316"/>
-      <stop offset="1" stop-color="#FACC15"/>
-    </linearGradient>
-    <linearGradient id="core" x1="0" y1="0" x2="0" y2="1">
-      <stop offset="0" stop-color="#FDE047"/>
-      <stop offset="1" stop-color="#FFFBEB"/>
-    </linearGradient>
-    <linearGradient id="tool" x1="0" y1="0" x2="0.85" y2="1">
-      <stop offset="0" stop-color="#F8FAFC"/>
-      <stop offset="0.42" stop-color="#CBD5E1"/>
-      <stop offset="1" stop-color="#64748B"/>
-    </linearGradient>
-  </defs>
-
-  <rect width="256" height="256" rx="56" fill="url(#tile)"/>
-  <rect width="256" height="256" rx="56" fill="url(#heat)"/>
-  <rect x="1" y="1" width="254" height="254" rx="55" fill="none" stroke="#2A2118" stroke-width="2"/>
-
-  <g transform="translate(128 126) scale(1.15) translate(-128 -100)">
-    <path fill="url(#flame)" d="M128 30C142 62 163 82 169 108C176 136 166 160 150 170L106 170C90 160 80 136 87 108C91 92 100 82 108 68C111 88 121 94 126 88C132 80 126 50 128 30Z"/>
-    <path fill="url(#core)" d="M128 92C136 108 148 120 148 138C148 157 139 168 128 170C117 168 108 157 108 138C108 122 120 110 128 92Z"/>
-  </g>
-
-  <g transform="rotate(-40 128 128)" fill="url(#tool)" stroke="#140F0A" stroke-width="5" stroke-linejoin="round">
-    <rect x="63" y="119" width="134" height="18" rx="9"/>
-    <path fill-rule="evenodd" d="M39 128a26 26 0 1 0 52 0a26 26 0 1 0 -52 0ZM53 128a12 12 0 1 0 24 0a12 12 0 1 0 -24 0Z"/>
-    <path d="M177 104L215 104L215 120L196 120Q189 120 189 128Q189 136 196 136L215 136L215 152L177 152Q169 152 169 144L169 112Q169 104 177 104Z"/>
-  </g>
-</svg>
-  <svg x="380" y="170" width="736" height="175" viewBox="0 0 756 180">
+  <svg x="120" y="140" width="960" height="229" viewBox="0 0 756 180">
   <title>Burnout</title>
 
   <defs>
@@ -105,6 +62,6 @@
         opacity="0.5" pointer-events="none"/>
 </svg>
   <rect x="84" y="452" width="1032" height="4" rx="2" fill="url(#og-rule)"/>
-  <text x="84" y="520" fill="#f6efe7" font-family="Helvetica Neue, Helvetica, Arial, sans-serif" font-size="41" font-weight="700">Writes a bootable USB drive from the command line.</text>
-  <text x="84" y="570" fill="#bcad9e" font-family="Helvetica Neue, Helvetica, Arial, sans-serif" font-size="30">The same two commands on Windows, macOS and Linux.</text>
+  <text x="600" y="520" text-anchor="middle" fill="#f6efe7" font-family="Helvetica Neue, Helvetica, Arial, sans-serif" font-size="41" font-weight="700">Writes a bootable USB drive from the command line.</text>
+  <text x="600" y="570" text-anchor="middle" fill="#bcad9e" font-family="Helvetica Neue, Helvetica, Arial, sans-serif" font-size="30">The same two commands on Windows, macOS and Linux.</text>
 </svg>
