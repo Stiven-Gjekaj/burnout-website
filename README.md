@@ -12,7 +12,7 @@ The site is one static page. It has no build step and no dependency.
 | `public/index.html` | The page |
 | `public/styles.css` | The style, in dark and in light |
 | `public/app.js` | The download table, the install command and the copy buttons |
-| `public/assets/` | The logo and the wordmark of Burnout |
+| `public/assets/` | The wordmark of Burnout |
 | `art/og.svg` | The source of `public/og.png`, the preview image for links |
 | `vercel.json` | The output folder and the headers, with a strict content security policy |
 
@@ -50,5 +50,5 @@ After a change to `art/og.svg`, render the preview image again:
 
 ## Licence
 
-MIT, in [LICENSE](LICENSE). The logo and the wordmark are the ones in the
+MIT, in [LICENSE](LICENSE). The wordmark is the one in the
 Burnout repository.
